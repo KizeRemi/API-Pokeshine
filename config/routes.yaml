@@ -1,0 +1,20 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+user:
+    type: rest
+    prefix: /api/v1
+    resource: App\Controller\UserController
+
+default:
+    type: rest
+    prefix: /api/v1
+    resource: App\Controller\DefaultController
+
+login:
+    type: rest
+    prefix: /api/v1
+    resource: App\Controller\LoginController

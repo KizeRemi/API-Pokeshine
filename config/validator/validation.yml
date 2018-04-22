@@ -1,0 +1,7 @@
+App\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: email, message: "This email has already been registered"}
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: username, message: "This username has already been"}
+    properties:
+        friendCode:
+            - App\Validator\Constraints\User\FriendCode: ~

@@ -30,14 +30,29 @@ services:
     app.user.user_handler:
         class: App\Services\User\UserHandler
         arguments:
+            - '@security.token_storage'
             - '@form.factory'
             - '@fos_user.user_manager'
+        public: true
+
+    app.shiny.shiny_handler:
+        class: App\Services\Shiny\ShinyHandler
+        arguments:
+            - '@security.token_storage'
+            - '@form.factory'
+            - '@doctrine.orm.entity_manager'
         public: true
 
     app.repository.user_repository:
         class: App\Repository\UserRepository
         factory: 'doctrine.orm.entity_manager:getRepository'
         arguments: ['App\Entity\User']
+        public: true
+
+    app.repository.pokemon_repository:
+        class: App\Repository\PokemonRepository
+        factory: 'doctrine.orm.entity_manager:getRepository'
+        arguments: ['App\Entity\Pokemon']
         public: true
 
     app.user.password_handler:

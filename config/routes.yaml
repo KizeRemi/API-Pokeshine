@@ -18,3 +18,19 @@ login:
     type: rest
     prefix: /api/v1
     resource: App\Controller\LoginController
+
+pokemon:
+    type: rest
+    prefix: /api/v1
+    resource: App\Controller\PokemonController
+
+Shiny:
+    type: rest
+    prefix: /api/v1
+    resource: App\Controller\ShinyController
+
+# EasyAdminBundle Routing
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/AdminController.php"
+    type:     annotation
+    prefix:   /admin

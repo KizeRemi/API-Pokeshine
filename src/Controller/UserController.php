@@ -99,6 +99,7 @@ class UserController extends FOSRestController
      * @SWG\Tag(name="Users")
      * 
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     *
      * @Rest\View(serializerGroups={"user-details"})
      */
     public function patchUsersAction(Request $request)

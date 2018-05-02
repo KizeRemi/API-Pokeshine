@@ -3,7 +3,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Entity\PokemonType;
 
 /**
@@ -11,8 +11,7 @@ use App\Entity\PokemonType;
  *
  * @ORM\Table(name="pokemon")
  * @ORM\Entity(repositoryClass="App\Repository\PokemonRepository")
- * 
- * @Serializer\ExclusionPolicy("all")
+ *
  */
 class Pokemon
 {
@@ -21,40 +20,35 @@ class Pokemon
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * 
-     * @Serializer\Expose
-     * @Serializer\Groups({"pokemon-details", "pokemon-list"})
+     * @Groups({"pokemon-details"})
      */
     protected $id;
 
     /**
      * @ORM\Column(name="number", type="integer", nullable=false, unique=true)
      * 
-     * @Serializer\Expose
-     * @Serializer\Groups({"pokemon-details", "pokemon-list"})
+     * @Groups({"pokemon-details", "shinies-list"})
      */
     private $number;
 
     /**
      * @ORM\Column(name="generation", type="integer", nullable=false)
      *
-     * @Serializer\Expose
-     * @Serializer\Groups({"pokemon-details", "pokemon-list"})
+     * @Groups({"pokemon-details", "shinies-list"})
      */
     private $generation;
     
     /**
      * @ORM\Column(name="name", type="string", nullable=false)
      *
-     * @Serializer\Expose
-     * @Serializer\Groups({"pokemon-details", "pokemon-list"})
+    * @Groups({"pokemon-details", "shinies-list"})
      */
     private $name;
 
     /**
      * @ORM\Column(name="description", type="text", nullable=false)
      *
-     * @Serializer\Expose
-     * @Serializer\Groups({"pokemon-details"})
+     * @Groups({"pokemon-details"})
      */
     private $description;
 
@@ -80,8 +74,7 @@ class Pokemon
      *      maxMessage = "Vous ne pouvez sépcifier plus de {{ limit }} types"
      * )
      *
-     * @Serializer\Expose
-     * @Serializer\Groups({"pokemon-details", "pokemon-list"})
+     * @Groups({"pokemon-details", "shinies-list"})
      */
     private $pokemonTypes;
 
@@ -89,6 +82,11 @@ class Pokemon
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**

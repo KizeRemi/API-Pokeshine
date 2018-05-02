@@ -3,6 +3,7 @@ easy_admin:
     entities:
         User:
             class: App\Entity\User
+            label: 'Liste des utilisateurs'
             list:
                 fields:
                     - name
@@ -21,6 +22,7 @@ easy_admin:
                 actions: ['-delete']
         Pokemon:
             class: App\Entity\Pokemon
+            label: 'Liste des Pokemon'
             list:
                 fields:
                     - number
@@ -35,4 +37,37 @@ easy_admin:
                     - description
                     - generation
                     - { property: 'pokemonTypes', label: 'Types', type_options: { 'by_reference': false } }
+                actions: ['-delete']
+        ShinyToValidate:
+            class: App\Entity\Shiny
+            label: 'Shiny à valider'
+            list:
+                title: "Liste des shinies à valider"
+                fields:
+                    - { property: 'pokemon.name', label: 'Nom du Pokémon'}
+                    - { property: 'user.username', label: 'Utilisateur'}
+                    - { property: 'createdAt', format: 'j/n/Y' }
+                    - { property: 'validate', type: 'toggle' }
+                dql_filter: 'entity.validate = false'
+            form:
+                form_options: { csrf_protection: false }
+                fields:
+                    - user
+                    - pokemon
+                    - description
+                    - { property: 'validate', type: 'checkbox' }
+                actions: ['-delete']
+        AllShinies:
+            class: App\Entity\Shiny
+            label: 'Liste des Shinies'
+            list:
+                title: "Liste des shinies validés"
+                dql_filter: 'entity.validate = true'
+            form:
+                form_options: { csrf_protection: false }
+                fields:
+                    - user
+                    - pokemon
+                    - description
+                    - { property: 'validate', type: 'checkbox' }
                 actions: ['-delete']

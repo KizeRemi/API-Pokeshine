@@ -51,27 +51,16 @@ class PokemonController extends FOSRestController
             $paramFetcher->get('limit')
         );
 
-        return $pokemon;
-    }
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $shinies = $user->getShinies();
+        foreach ($pokemon as $pkmn) {
+            foreach ($shinies as $shiny) {
+                if ($shiny->getPokemon() === $pkmn && $shiny->isValidate()) {
+                    $pkmn->setHasShiny(true);
+                }
+            }
+        }
 
-    /**
-     * @SWG\Response(
-     *     response=200,
-     *     description="Return a pokemon informations.",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=Pokemon::class)
-     *     )
-     * )
-	 * @SWG\Response(response="404",description="Pokemon not found")
-     * @SWG\Tag(name="Pokemon")
-     * 
-     * @ParamConverter("pokemon", class="App:Pokemon")
-     *
-     * @Rest\View(serializerGroups={"pokemon-details"})
-     */
-    public function getPokemonAction(Pokemon $pokemon)
-    {
         return $pokemon;
     }
 }

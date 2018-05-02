@@ -4,7 +4,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
-use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Swagger\Annotations as SWG;
 use App\Entity\Pokemon;
 use App\Entity\Shiny;
@@ -14,7 +14,6 @@ use App\Entity\Shiny;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  *
- * @Serializer\ExclusionPolicy("all")
  */
 class User extends BaseUser
 {
@@ -25,56 +24,49 @@ class User extends BaseUser
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Serializer\Expose
-     * @Serializer\Groups({"user-details", "users-list"})
+     * @Groups({"user-details", "users-list"})
      */
     protected $id;
 
     /**
       * @SWG\Property(format="string")
       *
-      * @Serializer\Expose
-      * @Serializer\Groups({"user-details", "users-list"})
+      * @Groups({"user-details", "users-list"})
       */
     protected $username;
 
     /**
       * @ORM\Column(type="string", length=25, nullable=true)
       * 
-      * @Serializer\Expose
-      * @Serializer\Groups({"user-details"})
+      * @Groups({"user-details"})
       */
     private $name;
 
     /**
       * @ORM\Column(type="string", length=25, nullable=true)
       * 
-      * @Serializer\Expose
-      * @Serializer\Groups({"user-details"})
+      * @Groups({"user-details"})
       */
     private $lastname;
 
     /**
       * @ORM\Column(type="date", length=25, nullable=true)
       *
-      * @Serializer\Expose
-      * @Serializer\Groups({"user-details"})
+      * @Groups({"user-details"})
       */
     private $birthDate;
 
     /**
       * @ORM\Column(name="friend_code", type="integer", nullable=true)
       *
-      * @Serializer\Expose
-      * @Serializer\Groups({"user-details"})
+      * @Groups({"user-details"})
       */
     private $friendCode;
 
     /**
       * @ORM\OneToMany(targetEntity="Shiny", mappedBy="user")
       * 
-      * @Serializer\Expose
-      * @Serializer\Groups({"user-details"})
+      * @Groups({"user-details"})
       */
     private $shinies;
 

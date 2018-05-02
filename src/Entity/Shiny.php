@@ -4,16 +4,13 @@ namespace App\Entity;
 use App\Entity\User;
 use App\Entity\Pokemon;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Shiny
  *
  * @ORM\Table(name="shiny")
- * @ORM\Entity()
- *
- * @Serializer\ExclusionPolicy("all")
+ * @ORM\Entity(repositoryClass="App\Repository\ShinyRepository")
  */
 class Shiny
 {
@@ -22,8 +19,7 @@ class Shiny
       * @ORM\Column(type="integer")
       * @ORM\GeneratedValue(strategy="AUTO")
       * 
-      * @Serializer\Expose
-      * @Serializer\Groups({"user-details"})
+      * @Groups({"user-details"})
       */
     protected $id;
 
@@ -36,37 +32,28 @@ class Shiny
     /**
       * @ORM\ManyToOne(targetEntity="Pokemon")
       * @ORM\JoinColumn(name="pokemon_id", referencedColumnName="id")
-       
-      * @Serializer\Expose
-      * @Serializer\Groups({"user-details"})
+      * @Groups({"user-details", "shinies-list"})
       */
     private $pokemon;
 
     /**
       * @ORM\Column(name="description", type="string", nullable=true)
       *
-      * @Serializer\Expose
-      * @Serializer\Groups({"user-details"})
+      * @Groups({"user-details"})
       */
     private $description;
 
     /**
       * @ORM\Column(name="youtube", type="string", nullable=true)
-      * @Assert\Regex(
-      *     pattern="/(http(s)??\:\/\/)?(www\.)?((youtube\.com\/watch\?v=)|(youtu.be\/))([a-zA-Z0-9\-_])+$/",
-      *     match=false,
-      *     message="Your name cannot contain a number"
-      * )
-      * @Serializer\Expose
-      * @Serializer\Groups({"user-details"})
+      *
+      * @Groups({"user-details"})
       */
     private $youtube;
 
     /**
       * @ORM\Column(name="catch_date", type="datetime", nullable=false)
       *
-      * @Serializer\Expose
-      * @Serializer\Groups({"user-details"})
+      * @Groups({"user-details", "shinies-list"})
       */
     private $catchDate;
 
@@ -82,10 +69,18 @@ class Shiny
      */
     private $updatedAt;
 
+    /**
+      * @ORM\Column(type="boolean")
+      *
+      * @var bool
+      */
+    private $validate;
+ 
     public function __construct()
     {
         $this->createdAt = new \DatetimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->validate = false;
     }
 
     /**
@@ -255,5 +250,28 @@ class Shiny
     public function getYoutube()
     {
         return $this->youtube;
+    }
+
+    /**
+     * Set Validate
+     *
+     * @param bool $validate
+     *
+     * @return bool
+     */
+    public function setValidate($validate)
+    {
+        $this->validate = $validate;
+
+        return $this;
+    }
+    /**
+     * Get youtube
+     *
+     * @return bool
+     */
+    public function isValidate()
+    {
+        return $this->validate;
     }
 }

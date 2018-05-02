@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="pokemon_type")
  * @ORM\Entity()
  *
- * @Serializer\ExclusionPolicy("all")
  */
 class PokemonType
 {
@@ -18,17 +17,14 @@ class PokemonType
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * 
-     * @Serializer\Expose
-     * @Serializer\Groups({"pokemon-details", "pokemon-list"})
+     *
      */
     protected $id;
 
     /**
      * @ORM\Column(name="name", type="string", length=25, unique=true)
      * 
-     * @Serializer\Expose
-     * @Serializer\Groups({"pokemon-details", "pokemon-list"})
+     * @Groups({"pokemon-details", "pokemon-list"})
      */
     private $name;
 

@@ -5,3 +5,10 @@ App\Entity\User:
     properties:
         friendCode:
             - App\Validator\Constraints\User\FriendCode: ~
+
+App\Entity\Shiny:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: [pokemon, user], message: "Already Registered"}
+    properties:
+        youtube:
+            - App\Validator\Constraints\Shiny\YoutubeUrl: ~

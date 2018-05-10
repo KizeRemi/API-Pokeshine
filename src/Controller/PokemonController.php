@@ -50,17 +50,6 @@ class PokemonController extends FOSRestController
             $paramFetcher->get('offset'),
             $paramFetcher->get('limit')
         );
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $shinies = $user->getShinies();
-        foreach ($pokemon as $pkmn) {
-            foreach ($shinies as $shiny) {
-                if ($shiny->getPokemon() === $pkmn && $shiny->isValidate()) {
-                    $pkmn->setHasShiny(true);
-                }
-            }
-        }
-
         return $pokemon;
     }
 }

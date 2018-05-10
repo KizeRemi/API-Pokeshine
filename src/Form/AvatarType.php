@@ -1,12 +1,13 @@
 <?php
-
 namespace App\Form;
 
+use App\Form\DataTransformer\FileToBase64Transformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class UpdateUserType extends AbstractType
+class AvatarType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,10 +17,8 @@ class UpdateUserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('friendCode')
-            ->add('region')
-            ->add('age');
+        $builder->add('avatar', TextType::class);
+        $builder->get('avatar')->addModelTransformer(new FileToBase64Transformer());
     }
 
     /**
@@ -28,13 +27,5 @@ class UpdateUserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(['csrf_protection' => false]);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'user_update';
     }
 }

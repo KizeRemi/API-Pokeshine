@@ -11,6 +11,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 use App\Entity\User;
 use App\Entity\Shiny;
+use App\Entity\Pokemon;
 
 class ShinyController extends FOSRestController
 {
@@ -72,6 +73,29 @@ class ShinyController extends FOSRestController
             $paramFetcher->get('offset'),
             $paramFetcher->get('limit')
         );
+    }
 
+    /**
+     * Get a shiny from a user
+     * 
+     * @SWG\Response(
+     *     response=200,
+     *     description="Return a shiny informations.",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=User::class)
+     *     )
+     * )
+	 * @SWG\Response(response="404",description="User or Pokemon not found")
+     * @SWG\Tag(name="Users")
+     * 
+     * @ParamConverter("user", class="App:User")
+     * @ParamConverter("pokemon", class="App:Pokemon")
+     *
+     * @Rest\View(serializerGroups={"shiny-details"})
+     */
+    public function getUsersPokemonsAction(User $user, Pokemon $pokemon)
+    {
+        return $this->getDoctrine()->getRepository(Shiny::class)->findOneBy(['user' => $user, 'pokemon' => $pokemon]);
     }
 }

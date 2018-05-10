@@ -37,7 +37,7 @@ class UserHandler
     {
         $user = $this->tokenStorage->getToken()->getUser();
         $form = $this->formFactory->create(UpdateUserType::class, $user);
-        $form->submit($request);
+        $form->submit($request, false);
 
         if ($form->isValid()) {
             $user = $form->getData();

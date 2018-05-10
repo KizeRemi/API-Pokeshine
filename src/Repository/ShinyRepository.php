@@ -29,4 +29,20 @@ class ShinyRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param User $user
+     *
+     * @return string
+     */
+    public function countShiniesByUser(User $user): int
+    {
+        return (int) $this->createQueryBuilder('s')
+            ->select('COUNT(s)')
+            ->where('s.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere('s.validate = true')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

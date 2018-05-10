@@ -19,7 +19,7 @@ class Shiny
       * @ORM\Column(type="integer")
       * @ORM\GeneratedValue(strategy="AUTO")
       * 
-      * @Groups({"user-details"})
+      * @Groups({"user-details", "shiny-details"})
       */
     protected $id;
 
@@ -32,28 +32,28 @@ class Shiny
     /**
       * @ORM\ManyToOne(targetEntity="Pokemon")
       * @ORM\JoinColumn(name="pokemon_id", referencedColumnName="id")
-      * @Groups({"user-details", "shinies-list"})
+      * @Groups({"user-details", "shinies-list", "shiny-details"})
       */
     private $pokemon;
 
     /**
       * @ORM\Column(name="description", type="string", nullable=true)
       *
-      * @Groups({"user-details"})
+      * @Groups({"user-details", "shiny-details"})
       */
     private $description;
 
     /**
       * @ORM\Column(name="youtube", type="string", nullable=true)
       *
-      * @Groups({"user-details"})
+      * @Groups({"user-details", "shiny-details"})
       */
     private $youtube;
 
     /**
       * @ORM\Column(name="catch_date", type="datetime", nullable=false)
       *
-      * @Groups({"user-details", "shinies-list"})
+      * @Groups({"user-details", "shinies-list", "shiny-details"})
       */
     private $catchDate;
 
@@ -72,6 +72,7 @@ class Shiny
     /**
       * @ORM\Column(type="boolean")
       *
+      * @Groups({"shinies-list", "shiny-details"})
       * @var bool
       */
     private $validate;
@@ -240,6 +241,7 @@ class Shiny
     public function setYoutube($youtube)
     {
         $this->youtube = $youtube;
+
         return $this;
     }
     /**

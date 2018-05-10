@@ -20,28 +20,28 @@ class Pokemon
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * 
-     * @Groups({"pokemon-details"})
+     * @Groups({"pokemon-details", "shiny-details"})
      */
     protected $id;
 
     /**
      * @ORM\Column(name="number", type="integer", nullable=false, unique=true)
      * 
-     * @Groups({"pokemon-details", "shinies-list"})
+     * @Groups({"pokemon-details", "shinies-list", "shiny-details"})
      */
     private $number;
 
     /**
      * @ORM\Column(name="generation", type="integer", nullable=false)
      *
-     * @Groups({"pokemon-details", "shinies-list"})
+     * @Groups({"pokemon-details", "shinies-list", "shiny-details"})
      */
     private $generation;
     
     /**
      * @ORM\Column(name="name", type="string", nullable=false)
      *
-    * @Groups({"pokemon-details", "shinies-list"})
+    * @Groups({"pokemon-details", "shinies-list", "shiny-details"})
      */
     private $name;
 

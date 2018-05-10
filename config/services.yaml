@@ -63,3 +63,18 @@ services:
             - '@fos_user.user_manager'
             - '@form.factory'
         public: true
+
+    app.user.avatar_handler:
+        class: App\Services\User\AvatarHandler
+        arguments:
+            - '@security.token_storage'
+            - '@doctrine.orm.entity_manager'
+            - '@form.factory'
+            - '@app.file_uploader.avatar'
+        public: true
+
+    app.file_uploader.avatar:
+        class: App\Services\FileUploader
+        arguments:
+            $targetDir: '%kernel.project_dir%/public/uploads/avatars'
+        public: true

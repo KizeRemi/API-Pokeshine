@@ -6,7 +6,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * Class FriendCodeValidator
- * @package WikiBundle\Validator\Constraints
+ * @package App\Validator\Constraints
  */
 class YoutubeUrlValidator extends ConstraintValidator
 {

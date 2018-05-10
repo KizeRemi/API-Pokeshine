@@ -5,15 +5,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Swagger\Annotations as SWG;
 use App\Entity\Pokemon;
 use App\Entity\Shiny;
 
 /**
- * 
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- *
  */
 class User extends BaseUser
 {
@@ -50,26 +49,46 @@ class User extends BaseUser
     private $lastname;
 
     /**
-      * @ORM\Column(type="date", length=25, nullable=true)
+      * @ORM\Column(type="integer", length=2, nullable=true)
       *
       * @Groups({"user-details"})
       */
-    private $birthDate;
+    private $age;
 
     /**
-      * @ORM\Column(name="friend_code", type="integer", nullable=true)
+      * @ORM\Column(name="friend_code", type="bigint", length=255, nullable=true)
       *
       * @Groups({"user-details"})
       */
     private $friendCode;
 
     /**
-      * @ORM\OneToMany(targetEntity="Shiny", mappedBy="user")
-      * 
+      * @ORM\Column(name="region", type="string", nullable=true)
+      *
       * @Groups({"user-details"})
+      */
+      private $region;
+
+    /**
+      * @ORM\OneToMany(targetEntity="Shiny", mappedBy="user")
       */
     private $shinies;
 
+    /**
+     * @Groups({"user-details"})
+     */
+    private $nbrShinies;
+
+    /**
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     * @Groups({"user-details"})
+     * @Assert\File(
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     groups = {"avatar"}
+     * )
+     */
+    private $avatar;
+    
     public function __construct()
     {
         parent::__construct();
@@ -146,26 +165,49 @@ class User extends BaseUser
     }
 
     /**
-     * Set birthDate
+     * Set Age
      *
-     * @param \DateTime $birthDate
+     * @param int $age
      *
      * @return User
      */
-    public function setBirthDate($birthDate)
+    public function setAge($age)
     {
-        $this->birthDate = $birthDate;
+        $this->age = $age;
 
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getBirthDate()
+    public function getRegion()
     {
-        return $this->birthDate;
+        return $this->region;
     }
+
+    /**
+     * Set Region
+     *
+     * @param string region
+     *
+     * @return User
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
     /**
      * @param Shiny $shiny
      *
@@ -188,11 +230,50 @@ class User extends BaseUser
     {
         $this->shinies->removeElement($shiny);
     }
+
     /**
      * @return Collection
      */
     public function getShinies()
     {
         return $this->shinies;
+    }
+
+    /**
+     * Set nbrShinies
+     *
+     * @param int $nbr
+     *
+     * @return User
+     */
+    public function setNbrShinies($nbrShinies)
+    {
+        $this->nbrShinies = $nbrShinies;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNbrShinies()
+    {
+        return $this->nbrShinies;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param string
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
     }
 }

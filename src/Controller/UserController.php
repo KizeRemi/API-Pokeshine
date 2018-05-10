@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Entity\Shiny;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Swagger\Annotations as SWG;
 
@@ -37,6 +38,56 @@ class UserController extends FOSRestController
     }
 
     /**
+     * Patch User image
+     * 
+     * @SWG\Response(
+     *     response=200,
+     *     description="Return an user connected",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=User::class)
+     *     )
+     * )
+	 * @SWG\Response(response="404",description="User not found")
+     * @SWG\Tag(name="Users")
+     *
+     *
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     *
+     * @Rest\View(serializerGroups={"user-details"})
+     */
+    public function patchUsersAvatarAction(Request $request)
+    {
+        return $this->container->get('app.user.avatar_handler')->patch($request->request->all());
+    }
+
+    /**
+     * Get user connected details
+     * 
+     * @SWG\Response(
+     *     response=200,
+     *     description="Return an user connected",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=User::class)
+     *     )
+     * )
+	 * @SWG\Response(response="404",description="User not found")
+     * @SWG\Tag(name="Users")
+     * 
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     *
+     * @Rest\View(serializerGroups={"user-details"})
+     */
+    public function getUsersMeAction()
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user->setNbrShinies($this->getDoctrine()->getRepository(Shiny::class)->countShiniesByUser($user));
+
+        return $user;
+    }
+
+    /**
      * Get an enabled users
      * 
      * @SWG\Response(
@@ -56,6 +107,8 @@ class UserController extends FOSRestController
      */
     public function getUserAction(User $user)
     {
+        $user->setNbrShinies($this->getDoctrine()->getRepository(Shiny::class)->countShiniesByUser($user));
+
         return $user;
     }
 
@@ -85,7 +138,7 @@ class UserController extends FOSRestController
     }
 
     /**
-     * Updaye an account.
+     * Update an account.
      * 
      * @SWG\Response(
      *     response=201,

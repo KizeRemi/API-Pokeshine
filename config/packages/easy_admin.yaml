@@ -47,27 +47,27 @@ easy_admin:
                     - { property: 'pokemon.name', label: 'Nom du Pokémon'}
                     - { property: 'user.username', label: 'Utilisateur'}
                     - { property: 'createdAt', format: 'j/n/Y' }
-                    - { property: 'validate', type: 'toggle' }
-                dql_filter: 'entity.validate = false'
+                    - { property: 'validation', type: 'toggle' }
+                dql_filter: 'entity.validation = false'
             form:
                 form_options: { csrf_protection: false }
                 fields:
                     - user
                     - pokemon
                     - description
-                    - { property: 'validate', type: 'checkbox' }
+                    - { property: 'validation', type: 'checkbox' }
                 actions: ['-delete']
         AllShinies:
             class: App\Entity\Shiny
             label: 'Liste des Shinies'
             list:
                 title: "Liste des shinies validés"
-                dql_filter: 'entity.validate = true'
+                dql_filter: 'entity.validation = true'
             form:
                 form_options: { csrf_protection: false }
                 fields:
                     - user
                     - pokemon
                     - description
-                    - { property: 'validate', type: 'checkbox' }
+                    - { property: 'validation', type: 'checkbox' }
                 actions: ['-delete']

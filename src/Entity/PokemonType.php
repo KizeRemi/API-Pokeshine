@@ -24,7 +24,7 @@ class PokemonType
     /**
      * @ORM\Column(name="name", type="string", length=25, unique=true)
      * 
-     * @Groups({"pokemon-details", "pokemon-list"})
+     * @Groups({"pokemon-details", "pokemon-list", "user-details"})
      */
     private $name;
 

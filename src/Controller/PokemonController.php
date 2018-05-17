@@ -52,4 +52,27 @@ class PokemonController extends FOSRestController
         );
         return $pokemon;
     }
+
+    /**
+     * Get a Pokemon
+     * 
+     * @SWG\Response(
+     *     response=200,
+     *     description="Return a pokemon informations.",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=Pokemon::class)
+     *     )
+     * )
+	 * @SWG\Response(response="404",description="Pokemon not found")
+     * @SWG\Tag(name="Pokemons")
+     * 
+     * @ParamConverter("pokemon", class="App:Pokemon")
+     *
+     * @Rest\View(serializerGroups={"pokemon-details"})
+     */
+    public function getPokemonAction(Pokemon $pokemon)
+    {
+        return $pokemon;
+    }
 }

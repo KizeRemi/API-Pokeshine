@@ -20,28 +20,28 @@ class Pokemon
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * 
-     * @Groups({"pokemon-details", "shiny-details"})
+     * @Groups({"pokemon-details", "shiny-details", "user-details"})
      */
     protected $id;
 
     /**
      * @ORM\Column(name="number", type="integer", nullable=false, unique=true)
      * 
-     * @Groups({"pokemon-details", "shinies-list", "shiny-details"})
+     * @Groups({"pokemon-details", "shinies-list", "shiny-details", "user-details"})
      */
     private $number;
 
     /**
      * @ORM\Column(name="generation", type="integer", nullable=false)
      *
-     * @Groups({"pokemon-details", "shinies-list", "shiny-details"})
+     * @Groups({"pokemon-details", "shinies-list", "shiny-details", "user-details"})
      */
     private $generation;
     
     /**
      * @ORM\Column(name="name", type="string", nullable=false)
      *
-    * @Groups({"pokemon-details", "shinies-list", "shiny-details"})
+    * @Groups({"pokemon-details", "shinies-list", "shiny-details", "user-details"})
      */
     private $name;
 
@@ -74,7 +74,7 @@ class Pokemon
      *      maxMessage = "Vous ne pouvez sépcifier plus de {{ limit }} types"
      * )
      *
-     * @Groups({"pokemon-details", "shinies-list"})
+     * @Groups({"pokemon-details", "shinies-list", "user-details"})
      */
     private $pokemonTypes;
 

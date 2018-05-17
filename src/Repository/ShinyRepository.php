@@ -23,7 +23,6 @@ class ShinyRepository extends EntityRepository
             ->setParameter('user', $user)
             ->andWhere('p.generation = :gen')
             ->setParameter('gen', $generation)
-            ->andWhere('s.validate = true')
             ->setFirstResult($offset)
             ->setMaxResults($limit)
             ->getQuery()
@@ -41,7 +40,7 @@ class ShinyRepository extends EntityRepository
             ->select('COUNT(s)')
             ->where('s.user = :user')
             ->setParameter('user', $user)
-            ->andWhere('s.validate = true')
+            ->andWhere('s.validation = true')
             ->getQuery()
             ->getSingleScalarResult();
     }

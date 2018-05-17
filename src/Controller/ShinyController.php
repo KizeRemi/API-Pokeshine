@@ -23,7 +23,7 @@ class ShinyController extends FOSRestController
      *
      * @SWG\Response(
      *     response=201,
-     *     description="Create a new account for the user."
+     *     description="Create a new shiny for the user."
      * )
      */
     public function postShiniesAction(Request $request)
@@ -97,5 +97,34 @@ class ShinyController extends FOSRestController
     public function getUsersPokemonsAction(User $user, Pokemon $pokemon)
     {
         return $this->getDoctrine()->getRepository(Shiny::class)->findOneBy(['user' => $user, 'pokemon' => $pokemon]);
+    }
+
+    /**
+     * Get shinies counter by generation for a user
+     * @Rest\QueryParam(
+     *     name="generation",
+     *     strict=true,
+     *     nullable=false,
+     *     description="Query"
+     * )
+     *
+     * @SWG\Response(
+     *     response=200,
+     *     description="Get shinies counter by generation for a user.",
+     *     @SWG\Schema(
+     *         type="array",
+     *         @Model(type=User::class)
+     *     )
+     * )
+	 * @SWG\Response(response="404",description="User not found")
+     * @SWG\Tag(name="Users")
+     * 
+     * @ParamConverter("user", class="App:User")
+     *
+     * @Rest\View(serializerGroups={"user-details"})
+     */
+    public function getUserShiniesCounterAction(User $user, ParamFetcher $paramFetcher)
+    {
+        return $this->getDoctrine()->getRepository(Shiny::class)->countShiniesByUserAndGeneration($user, $paramFetcher->get('generation'));
     }
 }

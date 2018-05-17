@@ -81,10 +81,30 @@ class UserController extends FOSRestController
      */
     public function getUsersMeAction()
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $user->setNbrShinies($this->getDoctrine()->getRepository(Shiny::class)->countShiniesByUser($user));
+        return $this->get('security.token_storage')->getToken()->getUser();
+    }
 
-        return $user;
+    /**
+     * Get Top shinies users.
+     * 
+     * @SWG\Response(
+     *     response=201,
+     *     description="Update an account for the user."
+     * )
+     * @SWG\Parameter(name="user", in="body", type="object", description="The body of the user",
+     *     @SWG\Schema(type="object",
+     *          @SWG\Property(type="string", property="friendCode", type="string", example="1111-1111-1111-1111", description="friend code" ),
+     *     )
+     * )
+     * @SWG\Tag(name="Users")
+     * 
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     *
+     * @Rest\View(serializerGroups={"users-list"})
+     */
+    public function getUsersTopAction(Request $request)
+    {
+        return $this->getDoctrine()->getRepository(User::class)->getUsersTop();
     }
 
     /**
@@ -107,8 +127,6 @@ class UserController extends FOSRestController
      */
     public function getUserAction(User $user)
     {
-        $user->setNbrShinies($this->getDoctrine()->getRepository(Shiny::class)->countShiniesByUser($user));
-
         return $user;
     }
 
@@ -158,5 +176,28 @@ class UserController extends FOSRestController
     public function patchUsersAction(Request $request)
     {
         return $this->container->get('app.user.user_handler')->patch($request->request->all());
+    }
+
+    /**
+     * Update current hunt for the user.
+     * 
+     * @SWG\Response(
+     *     response=201,
+     *     description="Update an account for the user."
+     * )
+     * @SWG\Parameter(name="user", in="body", type="object", description="The body of the user",
+     *     @SWG\Schema(type="object",
+     *          @SWG\Property(type="string", property="friendCode", type="string", example="1111-1111-1111-1111", description="friend code" ),
+     *     )
+     * )
+     * @SWG\Tag(name="Users")
+     * 
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     *
+     * @Rest\View(serializerGroups={"user-details"})
+     */
+    public function patchUsersHuntAction(Request $request)
+    {
+        return $this->container->get('app.user.current_hunt_handler')->patch($request->request->all());
     }
 }

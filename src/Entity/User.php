@@ -75,11 +75,6 @@ class User extends BaseUser
     private $shinies;
 
     /**
-     * @Groups({"user-details"})
-     */
-    private $nbrShinies;
-
-    /**
      * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
      * @Groups({"user-details"})
      * @Assert\File(
@@ -88,7 +83,14 @@ class User extends BaseUser
      * )
      */
     private $avatar;
-    
+
+    /**
+      * @ORM\ManyToOne(targetEntity="Pokemon")
+      * @ORM\JoinColumn(name="current_hunt", referencedColumnName="id")
+      * @Groups({"user-details"})
+      */
+    private $currentHunt;
+
     public function __construct()
     {
         parent::__construct();
@@ -153,6 +155,7 @@ class User extends BaseUser
     public function setFriendCode($friendCode)
     {
         $this->friendCode = $friendCode;
+
         return $this;
     }
 
@@ -240,25 +243,15 @@ class User extends BaseUser
     }
 
     /**
-     * Set nbrShinies
-     *
-     * @param int $nbr
-     *
-     * @return User
-     */
-    public function setNbrShinies($nbrShinies)
-    {
-        $this->nbrShinies = $nbrShinies;
-
-        return $this;
-    }
-
-    /**
-     * @return int
+     * @Groups({"user-details"})
      */
     public function getNbrShinies()
     {
-        return $this->nbrShinies;
+        $shinies = $this->shinies->filter(function(Shiny $shiny) {
+            return $shiny->isValidation();
+        });
+
+        return count($shinies);
     }
 
     /**
@@ -275,5 +268,29 @@ class User extends BaseUser
     public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
+    }
+
+    /**
+     * Set currentHunt
+     *
+     * @param Pokemon $pokemon
+     *
+     * @return User
+     */
+    public function setCurrentHunt(Pokemon $pokemon): User
+    {
+        $this->currentHunt = $pokemon;
+
+        return $this;
+    }
+
+    /**
+     * Get currentHunt
+     *
+     * @return Pokemon
+     */
+    public function getCurrentHunt()
+    {
+        return $this->currentHunt;
     }
 }

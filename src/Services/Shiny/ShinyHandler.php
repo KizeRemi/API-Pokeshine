@@ -28,18 +28,16 @@ class ShinyHandler
     public function post(array $request)
     {
         $shiny = new Shiny();
+        $user = $this->tokenStorage->getToken()->getUser();
+        $shiny->setUser($user);
 
         return $this->processForm($shiny, $request, 'POST');
     }
 
-
     private function processForm(Shiny $shiny, array $request, $method)
     {
-
-        $user = $this->tokenStorage->getToken()->getUser();
-        $shiny->setUser($user);
         $form = $this->formFactory->create(ShinyType::class, $shiny, ['method' => $method]);
-        $form->submit($request, 'POST');
+        $form->submit($request);
 
         if ($form->isValid()) {
             $this->entityManager->persist($shiny);

@@ -73,6 +73,14 @@ services:
             - '@app.file_uploader.avatar'
         public: true
 
+    app.user.current_hunt_handler:
+        class: App\Services\User\CurrentHuntHandler
+        arguments:
+            - '@security.token_storage'
+            - '@doctrine.orm.entity_manager'
+            - '@form.factory'
+        public: true
+
     app.file_uploader.avatar:
         class: App\Services\FileUploader
         arguments:

@@ -11,5 +11,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
-
+    /**
+     * @return array
+     */
+    public function getUsersTop(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(s) AS HIDDEN nbrShinies', 'u')
+            ->join('u.shinies', 's')
+            ->orderBy('nbrShinies', 'DESC')
+            ->andWhere('s.validation = "hunt_validation"')
+            ->setMaxResults(10)
+            ->groupBy('u')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -51,11 +51,18 @@ class Shiny
     private $youtube;
 
     /**
-      * @ORM\Column(name="catch_date", type="datetime", nullable=false)
+      * @ORM\Column(name="catch_date", type="datetime", nullable=true)
       *
       * @Groups({"user-details", "shinies-list", "shiny-details"})
       */
     private $catchDate;
+
+    /**
+      * @ORM\Column(name="tries", type="integer", length=255, nullable=false)
+      *
+      * @Groups({"user-details", "shiny-details"})
+      */
+    private $tries;
 
     /**
     * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -70,18 +77,17 @@ class Shiny
     private $updatedAt;
 
     /**
-      * @ORM\Column(type="boolean")
+      * @ORM\Column(name="validation", type="boolean", nullable=false)
       *
       * @Groups({"shinies-list", "shiny-details"})
-      * @var bool
       */
-    private $validate;
+    private $validation;
  
     public function __construct()
     {
         $this->createdAt = new \DatetimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
-        $this->validate = false;
+        $this->validation = false;
     }
 
     /**
@@ -261,19 +267,42 @@ class Shiny
      *
      * @return bool
      */
-    public function setValidate($validate)
+    public function setValidation($validation)
     {
-        $this->validate = $validate;
+        $this->validation = $validation;
 
         return $this;
     }
     /**
-     * Get youtube
+     * Get Validation
+     *
+     * @return string
+     */
+    public function isValidation()
+    {
+        return $this->validation;
+    }
+
+    /**
+     * Set tries
+     *
+     * @param int $tries
      *
      * @return bool
      */
-    public function isValidate()
+    public function setTries($tries)
     {
-        return $this->validate;
+        $this->tries = $tries;
+
+        return $this;
+    }
+    /**
+     * Get tries
+     *
+     * @return string
+     */
+    public function getTries()
+    {
+        return $this->tries;
     }
 }

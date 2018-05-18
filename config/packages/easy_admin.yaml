@@ -48,6 +48,7 @@ easy_admin:
                     - { property: 'user.username', label: 'Utilisateur'}
                     - { property: 'createdAt', format: 'j/n/Y' }
                     - { property: 'validation', type: 'toggle' }
+                    - { property: 'image', type: 'image', 'base_path': '/uploads/shinies/' }
                 dql_filter: 'entity.validation = false'
             form:
                 form_options: { csrf_protection: false }
@@ -70,4 +71,5 @@ easy_admin:
                     - pokemon
                     - description
                     - { property: 'validation', type: 'checkbox' }
+                    - { property: 'image', type: 'image', 'base_path': '/uploads/shinies/' }
                 actions: ['-delete']

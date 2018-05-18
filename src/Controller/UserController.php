@@ -20,11 +20,7 @@ class UserController extends FOSRestController
      * 
      * @SWG\Response(
      *     response=200,
-     *     description="Return all enabled users.",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=User::class)
-     *     )
+     *     description="Return all enabled users."
      * )
      * @SWG\Tag(name="Users")
      *
@@ -42,11 +38,7 @@ class UserController extends FOSRestController
      * 
      * @SWG\Response(
      *     response=200,
-     *     description="Return an user connected",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=User::class)
-     *     )
+     *     description="Return an user connected"
      * )
 	 * @SWG\Response(response="404",description="User not found")
      * @SWG\Tag(name="Users")
@@ -66,11 +58,7 @@ class UserController extends FOSRestController
      * 
      * @SWG\Response(
      *     response=200,
-     *     description="Return an user connected",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=User::class)
-     *     )
+     *     description="Return an user connected"
      * )
 	 * @SWG\Response(response="404",description="User not found")
      * @SWG\Tag(name="Users")
@@ -112,11 +100,7 @@ class UserController extends FOSRestController
      * 
      * @SWG\Response(
      *     response=200,
-     *     description="Return an enabled user informations.",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=User::class)
-     *     )
+     *     description="Return an enabled user informations."
      * )
 	 * @SWG\Response(response="404",description="User not found")
      * @SWG\Tag(name="Users")

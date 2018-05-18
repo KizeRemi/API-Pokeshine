@@ -16,11 +16,7 @@ class LoginController extends Controller implements ClassResourceInterface
      *
      * @SWG\Response(
      *     response=200,
-     *     description="The token authentication for the user.",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=User::class)
-     *     )
+     *     description="The token authentication for the user."
      * )
      * @SWG\Parameter(name="username", in="formData", type="string", description="The field used for the username", required=true)
      * @SWG\Parameter(name="password", in="formData", type="string", description="The field used for the user password", required=true)
@@ -40,11 +36,7 @@ class LoginController extends Controller implements ClassResourceInterface
      * 
      * @SWG\Response(
      *     response=200,
-     *     description="The token authentication for the user.",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=User::class)
-     *     )
+     *     description="The token authentication for the user."
      * )
      * @SWG\Parameter(name="user", in="body", description="The field used for the user email",
      *     @SWG\Schema(type="object",
@@ -67,11 +59,7 @@ class LoginController extends Controller implements ClassResourceInterface
      * 
      * @SWG\Response(
      *     response=200,
-     *     description="Change the user password.",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=User::class)
-     *     )
+     *     description="Change the user password."
      * )
      * @SWG\Parameter(name="user", in="body", description="The field used for the user email",
      *     @SWG\Schema(type="object",

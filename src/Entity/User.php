@@ -235,9 +235,9 @@ class User extends BaseUser
     }
 
     /**
-     * @return Collection
+     * @return ArrayCollection
      */
-    public function getShinies()
+    public function getShinies(): ArrayCollection
     {
         return $this->shinies;
     }
@@ -245,7 +245,7 @@ class User extends BaseUser
     /**
      * @Groups({"user-details", "users-list"})
      */
-    public function getNbrShinies()
+    public function getNbrShinies(): integer
     {
         $shinies = $this->shinies->filter(function(Shiny $shiny) {
             return $shiny->isValidation();

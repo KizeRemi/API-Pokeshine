@@ -93,3 +93,27 @@ services:
         arguments:
             $targetDir: '%kernel.project_dir%/public/uploads/shinies'
         public: true
+
+
+    app.guzzle:
+        class: \GuzzleHttp\Client
+        autowire: true
+        public: true
+
+
+    GuzzleHttp\Client: '@app.guzzle'
+
+    App\EventSubscriber\ShinySubscriber:
+        arguments:
+            - '@app.discord.post_message_to_channel'
+        tags:
+            - { name: doctrine.event_subscriber }
+
+
+    app.discord.post_message_to_channel:
+        class: App\Discord\SendMessageToChannel
+        arguments:
+            - '@app.guzzle'
+            - 'https://discordapp.com/api/v6/channels/446831005240786945/messages'
+            - 'NDQ2ODMxMjg0ODQ1Njc0NDk2.Dd--eQ.oVzmxiozcT3Ob-z8uJ6g2dmWlV0'
+        public: true

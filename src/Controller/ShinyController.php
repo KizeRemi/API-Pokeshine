@@ -80,11 +80,7 @@ class ShinyController extends FOSRestController
      * 
      * @SWG\Response(
      *     response=200,
-     *     description="Return a shiny informations.",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=User::class)
-     *     )
+     *     description="Return a shiny informations."
      * )
 	 * @SWG\Response(response="404",description="User or Pokemon not found")
      * @SWG\Tag(name="Users")
@@ -110,11 +106,7 @@ class ShinyController extends FOSRestController
      *
      * @SWG\Response(
      *     response=200,
-     *     description="Get shinies counter by generation for a user.",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=User::class)
-     *     )
+     *     description="Get shinies counter by generation for a user."
      * )
 	 * @SWG\Response(response="404",description="User not found")
      * @SWG\Tag(name="Users")

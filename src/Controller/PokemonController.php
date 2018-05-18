@@ -34,11 +34,7 @@ class PokemonController extends FOSRestController
      *
      * @SWG\Response(
      *     response=200,
-     *     description="Return all Pokemon.",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=Pokemon::class)
-     *     )
+     *     description="Return all Pokemon."
      * )
      * @SWG\Tag(name="Pokemon")
      *
@@ -58,11 +54,7 @@ class PokemonController extends FOSRestController
      * 
      * @SWG\Response(
      *     response=200,
-     *     description="Return a pokemon informations.",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @Model(type=Pokemon::class)
-     *     )
+     *     description="Return a pokemon informations."
      * )
 	 * @SWG\Response(response="404",description="Pokemon not found")
      * @SWG\Tag(name="Pokemons")

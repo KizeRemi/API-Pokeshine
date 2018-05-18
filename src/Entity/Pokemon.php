@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Entity\PokemonType;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Pokemon
@@ -208,9 +209,9 @@ class Pokemon
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
-    public function getPokemonTypes()
+    public function getPokemonTypes() : Collection
     {
         return $this->pokemonTypes;
     }

@@ -41,6 +41,7 @@ services:
             - '@security.token_storage'
             - '@form.factory'
             - '@doctrine.orm.entity_manager'
+            - '@app.file_uploader.shiny'
         public: true
 
     app.repository.user_repository:
@@ -85,4 +86,10 @@ services:
         class: App\Services\FileUploader
         arguments:
             $targetDir: '%kernel.project_dir%/public/uploads/avatars'
+        public: true
+
+    app.file_uploader.shiny:
+        class: App\Services\FileUploader
+        arguments:
+            $targetDir: '%kernel.project_dir%/public/uploads/shinies'
         public: true

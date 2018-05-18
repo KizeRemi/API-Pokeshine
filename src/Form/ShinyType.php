@@ -2,11 +2,13 @@
 namespace App\Form;
 
 use App\Entity\Pokemon;
+use App\Form\DataTransformer\FileToBase64Transformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ShinyType extends AbstractType
 {
@@ -29,7 +31,10 @@ class ShinyType extends AbstractType
             ])
             ->add('description')
             ->add('youtube')
-            ->add('tries');
+            ->add('tries')
+            ->add('image', TextType::class);
+        
+        $builder->get('image')->addModelTransformer(new FileToBase64Transformer());
     }
 
     /**

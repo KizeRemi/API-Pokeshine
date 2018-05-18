@@ -20,7 +20,7 @@ class UserRepository extends EntityRepository
             ->select('COUNT(s) AS HIDDEN nbrShinies', 'u')
             ->join('u.shinies', 's')
             ->orderBy('nbrShinies', 'DESC')
-            ->andWhere('s.validation = "hunt_validation"')
+            ->andWhere('s.validation = true')
             ->setMaxResults(10)
             ->groupBy('u')
             ->getQuery()

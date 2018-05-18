@@ -5,6 +5,7 @@ use App\Entity\User;
 use App\Entity\Pokemon;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Shiny
@@ -82,7 +83,17 @@ class Shiny
       * @Groups({"shinies-list", "shiny-details"})
       */
     private $validation;
- 
+
+     /**
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     * @Groups({"shiny-details"})
+     * @Assert\File(
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     groups = {"image"}
+     * )
+     */
+    private $image;
+    
     public function __construct()
     {
         $this->createdAt = new \DatetimeImmutable();
@@ -304,5 +315,21 @@ class Shiny
     public function getTries()
     {
         return $this->tries;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 }

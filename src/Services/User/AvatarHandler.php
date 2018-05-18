@@ -12,23 +12,22 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AvatarHandler
 {
+    /** @var FileUploader */
     private $uploader;
 
-    /**
-     * @var UserManagerInterface
-     */
+    /** @var UserManagerInterface */
     private $entityManager;
 
-    /**
-     * @var FormFactoryInterface
-     */
+    /** @var FormFactoryInterface */
     private $formFactory;
 
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
     /**
      * @param UserManagerInterface $userManager
      * @param FormFactoryInterface $formFactory
+     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         TokenStorageInterface $tokenStorage,

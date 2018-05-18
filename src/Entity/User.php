@@ -76,7 +76,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
-     * @Groups({"user-details"})
+     * @Groups({"user-details", "users-list"})
      * @Assert\File(
      *     mimeTypes = {"image/png", "image/jpeg"},
      *     groups = {"avatar"}
@@ -243,7 +243,7 @@ class User extends BaseUser
     }
 
     /**
-     * @Groups({"user-details"})
+     * @Groups({"user-details", "users-list"})
      */
     public function getNbrShinies()
     {

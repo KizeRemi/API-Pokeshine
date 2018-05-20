@@ -75,7 +75,7 @@ class Pokemon
      *      maxMessage = "Vous ne pouvez sépcifier plus de {{ limit }} types"
      * )
      *
-     * @Groups({"pokemon-details", "shinies-list", "user-details"})
+     * @Groups({"pokemon-details", "shiny-details", "shinies-list", "user-details"})
      */
     private $pokemonTypes;
 
@@ -154,6 +154,7 @@ class Pokemon
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 

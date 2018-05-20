@@ -184,4 +184,27 @@ class UserController extends FOSRestController
     {
         return $this->container->get('app.user.current_hunt_handler')->patch($request->request->all());
     }
+
+    /**
+     * Update current tries for the user.
+     * 
+     * @SWG\Response(
+     *     response=201,
+     *     description="Update current tries for the user."
+     * )
+     * @SWG\Parameter(name="user", in="body", type="object", description="The body of the user",
+     *     @SWG\Schema(type="object",
+     *          @SWG\Property(type="string", property="currentTries", type="string", example="234", description="number total of tries" ),
+     *     )
+     * )
+     * @SWG\Tag(name="Users")
+     * 
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     *
+     * @Rest\View(serializerGroups={"user-details"})
+     */
+    public function patchUsersTriesAction(Request $request)
+    {
+        return $this->container->get('app.user.current_hunt_handler')->patchTries($request->request->all());
+    }
 }

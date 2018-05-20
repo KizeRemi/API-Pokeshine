@@ -1,26 +1,21 @@
 <?php
-
 namespace App\Form;
 
+use App\Entity\Pokemon;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class UpdateUserType extends AbstractType
+class CurrentTriesType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('friendCode')
-            ->add('region')
-            ->add('age')
-            ->add('description');
+        $builder->add('currentTries');
     }
 
     /**
@@ -29,13 +24,5 @@ class UpdateUserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(['csrf_protection' => false]);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'user_update';
     }
 }

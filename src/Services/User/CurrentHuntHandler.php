@@ -4,6 +4,7 @@ namespace App\Services\User;
 
 use App\Entity\User;
 use App\Form\CurrentHuntType;
+use App\Form\CurrentTriesType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -44,7 +45,7 @@ class CurrentHuntHandler
         
         if ($form->isValid()) {
             $user = $form->getData();
-
+            $user->setCurrentTries(0);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
@@ -52,6 +53,25 @@ class CurrentHuntHandler
         }
 
         return $form;
+    }
 
+    /**
+     * @param array
+     */
+    public function patchTries(array $request)
+    {
+        $user = $this->tokenStorage->getToken()->getUser();
+        $form = $this->formFactory->create(CurrentTriesType::class, $user);
+        $form->submit($request);
+        
+        if ($form->isValid()) {
+            $user = $form->getData();
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+
+            return $user;
+        }
+
+        return $form;
     }
 }

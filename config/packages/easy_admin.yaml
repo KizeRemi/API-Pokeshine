@@ -6,8 +6,6 @@ easy_admin:
             label: 'Liste des utilisateurs'
             list:
                 fields:
-                    - name
-                    - lastname
                     - username
                     - email
                     - { property: 'superAdmin', type: 'toggle' }
@@ -15,8 +13,6 @@ easy_admin:
             form:
                 form_options: { csrf_protection: false }
                 fields:
-                    - name
-                    - lastname
                     - username
                     - { property: 'email', type: 'email' }
                 actions: ['-delete']
@@ -42,6 +38,7 @@ easy_admin:
             class: App\Entity\Shiny
             label: 'Shiny à valider'
             list:
+                form_options: { csrf_protection: false }
                 title: "Liste des shinies à valider"
                 fields:
                     - { property: 'pokemon.name', label: 'Nom du Pokémon'}
@@ -50,6 +47,8 @@ easy_admin:
                     - { property: 'validation', type: 'toggle' }
                     - { property: 'image', type: 'image', 'base_path': '/uploads/shinies/' }
                 dql_filter: 'entity.validation = false'
+                actions:
+                    - { name: 'delete', icon: 'pencil', label: '', csrf_protection: false  }
             form:
                 form_options: { csrf_protection: false }
                 fields:
@@ -57,7 +56,6 @@ easy_admin:
                     - pokemon
                     - description
                     - { property: 'validation', type: 'checkbox' }
-                actions: ['-delete']
         AllShinies:
             class: App\Entity\Shiny
             label: 'Liste des Shinies'

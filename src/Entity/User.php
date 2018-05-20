@@ -35,20 +35,6 @@ class User extends BaseUser
     protected $username;
 
     /**
-      * @ORM\Column(type="string", length=25, nullable=true)
-      * 
-      * @Groups({"user-details"})
-      */
-    private $name;
-
-    /**
-      * @ORM\Column(type="string", length=25, nullable=true)
-      * 
-      * @Groups({"user-details"})
-      */
-    private $lastname;
-
-    /**
       * @ORM\Column(type="integer", length=2, nullable=true)
       *
       * @Groups({"user-details"})
@@ -67,7 +53,7 @@ class User extends BaseUser
       *
       * @Groups({"user-details"})
       */
-      private $region;
+    private $region;
 
     /**
       * @ORM\OneToMany(targetEntity="Shiny", mappedBy="user")
@@ -91,60 +77,26 @@ class User extends BaseUser
       */
     private $currentHunt;
 
+    /**
+      * @ORM\Column(type="integer", length=4, nullable=true)
+      *
+      * @Groups({"user-details"})
+      */
+    private $currentTries;
+
+    /**
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     *
+     * @Groups({"user-details"})
+     */
+    private $description;
+
     public function __construct()
     {
         parent::__construct();
         $this->roles = array(static::ROLE_USER);
         $this->enabled = 1;
         $this->shinies = new ArrayCollection();
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return User
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     *
-     * @return User
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get lastname
-     *
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
     }
 
     /**
@@ -168,20 +120,6 @@ class User extends BaseUser
     }
 
     /**
-     * Set Age
-     *
-     * @param int $age
-     *
-     * @return User
-     */
-    public function setAge($age)
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getRegion()
@@ -199,6 +137,20 @@ class User extends BaseUser
     public function setRegion($region)
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Set Age
+     *
+     * @param int $age
+     *
+     * @return User
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
 
         return $this;
     }
@@ -237,7 +189,7 @@ class User extends BaseUser
     /**
      * @return ArrayCollection
      */
-    public function getShinies(): ArrayCollection
+    public function getShinies()
     {
         return $this->shinies;
     }
@@ -245,7 +197,7 @@ class User extends BaseUser
     /**
      * @Groups({"user-details", "users-list"})
      */
-    public function getNbrShinies(): integer
+    public function getNbrShinies(): int
     {
         $shinies = $this->shinies->filter(function(Shiny $shiny) {
             return $shiny->isValidation();
@@ -292,5 +244,51 @@ class User extends BaseUser
     public function getCurrentHunt()
     {
         return $this->currentHunt;
+    }
+
+    /**
+     * Set currentTries
+     *
+     * @param int $currentTries
+     *
+     * @return User
+     */
+    public function setCurrentTries($currentTries)
+    {
+        $this->currentTries = $currentTries;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCurrentTries(): ?int
+    {
+        return $this->currentTries;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return User
+     */
+    public function setDescription($description): User
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
     }
 }

@@ -86,7 +86,7 @@ class Shiny
 
      /**
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
-     * @Groups({"shiny-details"})
+     * @Groups({"shiny-details", "shinies-list"})
      * @Assert\File(
      *     mimeTypes = {"image/png", "image/jpeg"},
      *     groups = {"image"}

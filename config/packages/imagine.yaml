@@ -1,0 +1,20 @@
+liip_imagine:
+    driver: "gd"
+
+    filter_sets:
+        avatar:
+            jpeg_quality:          50
+            png_compression_level: 8
+
+            filters:
+                auto_rotate: ~
+                strip: ~
+                thumbnail:
+                    size:          [400, 400]
+                    mode:          outbound
+                    allow_upscale: true
+
+                background:
+                    size:     [400,400]
+                    position: center
+                    color:    '#fff'

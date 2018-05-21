@@ -92,7 +92,15 @@ class UserController extends FOSRestController
      */
     public function getUsersTopAction(Request $request)
     {
-        return $this->getDoctrine()->getRepository(User::class)->getUsersTop();
+        $users = $this->getDoctrine()->getRepository(User::class)->getUsersTop();
+        $imagine = $this->container->get('app.imagine.image_optim');
+        foreach ($users as $user) {
+            if ($user->getAvatar()) {
+                $user->setAvatar($imagine->optim($user));
+            }
+        }
+
+        return $users;
     }
 
     /**

@@ -117,3 +117,9 @@ services:
             - 'https://discordapp.com/api/v6/channels/446831005240786945/messages'
             - 'NDQ2ODMxMjg0ODQ1Njc0NDk2.Dd--eQ.oVzmxiozcT3Ob-z8uJ6g2dmWlV0'
         public: true
+
+    app.imagine.image_optim:
+        class: App\Imagine\ImageOptim
+        arguments:
+            - '@liip_imagine.service.filter'
+        public: true
